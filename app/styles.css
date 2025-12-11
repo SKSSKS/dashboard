@@ -1,0 +1,338 @@
+:root{
+  --bg: #ffffff;        /* dashboard background (white) */
+  --card: #0b3b5c;      /* card background (navy-ish) — ensures white text is visible */
+  --navy: #001f54;      /* header navy blue */
+  --accent-start: #3b82f6;
+  --accent-end: #60a5fa;
+  --text: #ffffff;      /* all text white as requested */
+}
+
+/* Page layout */
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text) !important;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:24px;
+}
+
+a {
+    display: inline;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* Header (Card Status Dashboard) */
+header{
+  width:100%;
+  background:var(--navy);
+  padding:12px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.12);
+  display: flex;
+  gap: 1rem;
+}
+
+header h1{
+  margin:0;
+  color:var(--text);
+  text-align:center;
+  font-size:1.25rem;
+}
+
+/* Dashboard: place all cards in one horizontal row */
+#dashboard{
+  display:flex;                    /* put cards on same line */
+  flex-wrap:wrap;                /* prevent wrapping to next line */
+  gap:16px;
+  width:100%;
+  margin-top:16px;
+  overflow-x:auto;                 /* allow horizontal scroll on small screens */
+  -webkit-overflow-scrolling:touch;
+  padding-bottom:8px;
+  justify-content: center;
+}
+
+/* Cards */
+.card{
+  background:var(--card);
+  padding:16px;
+  border-radius:8px;
+  box-shadow:0 6px 18px rgba(2,6,23,0.06);
+  flex: 1;
+  min-width:250px;
+  text-align: center;
+}
+
+/* Per-card distinct backgrounds (keeps white text) */
+#dashboard .card:nth-child(5n-4) { background: linear-gradient(180deg,#0b69b3,#054a8c); } /* Total - blue */
+#dashboard .card:nth-child(5n-3) { background: linear-gradient(180deg,#ff8a00,#cc6600); } /* Draft - orange */
+#dashboard .card:nth-child(5n-2) { background: linear-gradient(180deg,#7c3aed,#5a27b0); } /* Audit - purple */
+#dashboard .card:nth-child(5n-1) { background: linear-gradient(180deg,#10b981,#0a8f66); } /* Published - green */
+#dashboard .card:nth-child(5n) { background: linear-gradient(180deg,#ef4444,#b22b2b); } /* Terminated - red */
+
+/* Optional: add subtle border for contrast on light backgrounds */
+#dashboard .card { border: 1px solid rgba(255,255,255,0.06); }
+
+/* Text colors forced to white */
+.card h2,
+.metric,
+small,
+footer,
+#dashboard,
+.card {
+  color:var(--text) !important;
+}
+
+/* Metrics and bars */
+.card h2{ margin:0 0 8px 0; font-size:0.9rem; color:var(--text); }
+.metric{
+  font-size:2rem;
+  font-weight:600;
+  margin-bottom:8px;
+  color:var(--text);
+}
+.bar-bg{
+  background:rgba(0,0,0,0.06);
+  height:10px;
+  border-radius:6px;
+  overflow:hidden;
+}
+.bar{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--accent-start),var(--accent-end));
+  transition:width 600ms ease;
+}
+
+/* Footer */
+footer{ margin-top:20px; color:var(--text); }
+
+/* Optional: hide scrollbar on some browsers while keeping scroll functionality */
+#dashboard::-webkit-scrollbar{ height:8px; }
+#dashboard::-webkit-scrollbar-thumb{ background: rgba(0,0,0,0.15); border-radius:8px; }
+
+/* Search control layout & button */
+.controls {
+  width:100%;
+  margin:12px;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  padding:0 8px;
+}
+.search-input{
+  flex:1;
+  min-width:160px;
+  max-width:300px;
+  padding:10px 12px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.08);
+  background: linear-gradient(90deg,#0b1220,#071023);
+  color:var(--text);
+  outline:none;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.02);
+}
+.search-input:focus{
+  box-shadow:0 0 0 3px rgba(59,130,246,0.12);
+  border-color: rgba(59,130,246,0.8);
+}
+
+/* Search button */
+.search-btn{
+  margin-left:6px;
+  padding:10px 14px;
+  border-radius:8px;
+  background: linear-gradient(180deg,#2563eb,#1e40af);
+  color:var(--text);
+  border:1px solid rgba(255,255,255,0.08);
+  cursor:pointer;
+  font-weight:600;
+  box-shadow: 0 4px 10px rgba(2,6,23,0.12);
+}
+.search-btn:hover{ transform:translateY(-1px); }
+.search-btn:active{ transform:translateY(0); }
+.search-btn:disabled{
+  opacity:0.6;
+  cursor:not-allowed;
+  transform:none;
+}
+
+/* Details panel (ensure dark contrast) */
+.details{
+  width:100%;
+  max-width:1200px;
+  margin:8px auto 32px;
+  padding:16px;
+  background: linear-gradient(180deg,#0b1220,#071023);
+  border-radius:10px;
+  box-shadow:0 10px 30px rgba(2,6,23,0.14);
+}
+
+/* Table */
+.card-table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:640px;
+  background:transparent;
+  border-radius:8px;
+  overflow:hidden;
+}
+.card-table thead th{
+  text-align:left;
+  padding:12px 14px;
+  font-weight:700;
+  font-size:0.85rem;
+  color:var(--text);
+  background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  text-transform:uppercase;
+  letter-spacing:0.03em;
+}
+.card-table tbody td{
+  color:var(--text);
+  vertical-align:middle;
+  border-bottom:1px solid rgba(255,255,255,0.03);
+}
+.card-table tbody tr{
+  transition: background 160ms ease, transform 120ms ease;
+}
+.card-table tbody tr:hover{
+  background: rgba(255,255,255,0.02);
+  transform: translateY(-1px);
+}
+
+/* Status pill for status column */
+.status-pill{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  vertical-align:middle;
+  margin: 10px 0;
+  padding:4px 10px !important;
+  border-radius:999px;
+  font-size:0.82rem;
+  font-weight:600;
+  color:var(--text);
+  width:100px;
+  text-align:center;
+  box-shadow: inset 0 -2px 6px rgba(0,0,0,0.15);
+}
+/* Example per-status colors (override as needed) */
+.status-pill.published{ background: linear-gradient(180deg,#10b981,#0a8f66); }
+.status-pill.draft{ background: linear-gradient(180deg,#ff8a00,#cc6600); }
+.status-pill.audit{ background: linear-gradient(180deg,#7c3aed,#5a27b0); }
+.status-pill.terminated{ background: linear-gradient(180deg,#ef4444,#b22b2b); }
+.status-pill.active{ background: linear-gradient(180deg,#0b69b3,#054a8c); }
+
+/* Action button */
+.action-btn{
+  padding:8px 12px;
+  background: rgba(255,255,255,0.06);
+  color:var(--text);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+}
+.action-btn:hover{ background: rgba(255,255,255,0.12); }
+
+/* Filters (status + date range) */
+.filters{
+  width:100%;
+  max-width:1200px;
+  margin:8px auto 14px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  padding:10px;
+  border-radius:8px;
+  flex-wrap:wrap;
+}
+.filter-item{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  min-width:140px;
+}
+.filter-label{
+  font-size:0.78rem;
+  color:rgba(255,255,255,0.8);
+  font-weight:600;
+}
+.filter-select,
+.date-input{
+  padding:8px 10px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(90deg,#0b1220,#071023);
+  color:var(--text);
+  outline:none;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.02);
+  font-size:0.95rem;
+}
+.filter-select:focus,
+.date-input:focus{
+  box-shadow:0 0 0 3px rgba(59,130,246,0.12);
+  border-color: rgba(59,130,246,0.8);
+}
+
+
+
+/* Responsive tweaks */
+@media (max-width:980px){
+  .controls{ padding:0 12px; gap:6px; }
+  .card{ flex:0 0 45%; } /* 2 per row when possible */
+}
+@media (max-width:640px){
+  #dashboard{ flex-wrap:wrap; gap:12px; }
+  .card{ flex:0 0 100%; min-width:unset; }
+  .search-input{ max-width:100%; }
+  .card-table{ min-width:480px; }
+  
+  .filters{ padding:12px; gap:10px; }
+  .filter-item{ min-width:100%; flex-direction:row; align-items:center; justify-content:space-between; }
+  .filter-label{ margin-right:8px; }
+}
+
+
+header,
+#dashboard,
+.details {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.06);
+  border-left: 1px solid rgba(2,6,23,0.06);
+  border-right: 1px solid rgba(2,6,23,0.06);
+}
+
+/* top piece of the framed area (header) */
+header {
+  border-top: 1px solid rgba(2,6,23,0.06);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* middle piece (cards) should visually connect to header/details */
+#dashboard {
+  background: transparent; /* keep per-card backgrounds visible */
+  padding: 16px;
+  border-top: none;
+  border-bottom: none;
+  border-radius: 0;
+}
+
+/* bottom piece (details) */
+.details {
+  margin-top: 12px;
+  border-bottom: 1px solid rgba(2,6,23,0.06);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding-top: 12px; /* keep spacing after cards */
+}
